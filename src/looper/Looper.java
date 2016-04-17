@@ -13,34 +13,39 @@ import java.util.logging.Logger;
  *
  * @author VIVEK
  */
-public class Looper<T> implements Runnable {
+public class Looper implements Runnable {
 
-    private List<T> iterableList;
+    private List<Loopable> iterableList;
     private Thread thread;
     private boolean startFlag;
     private int select = 0;
     private ChangeListener changeListener = new DEFAULT_CHANGE_LISTENER();
     private static final long SLEEP_MILLIS = 1000;
-    private ChangeEvent<T> changeEvent;
+    private ChangeEvent changeEvent;
 
-    public Looper(List<T> iterableList) {
+    public Looper(List<Loopable> iterableList) {
         this.iterableList = iterableList;
     }
 
     public Looper() {
-        this.iterableList = new ArrayList<T>();
+        this.iterableList = new ArrayList();
     }
 
-    public void setIterableList(List<T> iterableList) {
+    public void setIterableList(List<Loopable> iterableList) {
         this.iterableList = iterableList;
     }
 
-    public void addIter(T obj) {
-        this.iterableList.add(obj);
+    public void addIter(Object obj) {
+        if(obj instanceof Loopable){
+            iterableList.add((Loopable) obj);
+        }
+        else{
+            this.iterableList.add(new Loopable(obj));
+        }
     }
 
-    public T getCurrentItem() {
-        return iterableList.get(select);
+    public Object getCurrentItem() {
+        return iterableList.get(select).getObject();
     }
 
     public void startLooping() {
@@ -88,7 +93,7 @@ public class Looper<T> implements Runnable {
     protected ChangeEvent getChangeEvent() {
         int newSelect = select;
         int oldSelect = (select - 1 + iterableList.size()) % iterableList.size();
-        changeEvent = new ChangeEvent<T>(oldSelect, newSelect, iterableList);
+        changeEvent = new ChangeEvent(oldSelect, newSelect, iterableList);
         return changeEvent;
     }
 }

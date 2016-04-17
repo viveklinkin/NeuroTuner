@@ -21,7 +21,7 @@ public class NewJFrame extends javax.swing.JFrame implements ChangeListener {
      */
     public NewJFrame() {
         initComponents();
-        Looper<JButton> loop = new Looper<JButton>();
+        Looper loop = new Looper();
         jButton1.setBackground(Color.red);
         loop.addIter(jButton1);
         loop.addIter(jButton2);

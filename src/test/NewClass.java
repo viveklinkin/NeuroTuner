@@ -13,7 +13,7 @@ import looper.Looper;
 public class NewClass {
 
     public static void main(String args[]) throws Exception {
-        Looper<Integer> loop = new Looper<Integer>();
+        Looper loop = new Looper();
         loop.addIter(1);
         loop.addIter(2);
         loop.addIter(3);
@@ -22,7 +22,7 @@ public class NewClass {
         loop.startLooping();
         while (true) {
             Thread.sleep(400);
-            System.out.println(loop.getCurrentItem().intValue()+"");
+            System.out.println(((Integer)loop.getCurrentItem()).intValue() +"");
         }
     }
 }

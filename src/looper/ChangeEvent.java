@@ -10,22 +10,22 @@ import java.util.List;
  *
  * @author VIVEK
  */
-public class ChangeEvent<T> {
+public class ChangeEvent {
     private int oldSelect, newSelect;
-    private List<T> iterableList;
+    private List<Loopable> iterableList;
     
-    public ChangeEvent(int oldSelect, int newSelect, List<T> iterableList){
+    public ChangeEvent(int oldSelect, int newSelect, List<Loopable> iterableList){
         this.oldSelect = oldSelect;
         this.newSelect = newSelect;
         this.iterableList = iterableList;
     }
     
-    public T getOldObject(){
-        return iterableList.get(oldSelect);
+    public Object getOldObject(){
+        return iterableList.get(oldSelect).getObject();
     }
     
-    public T getNewObject(){
-        return iterableList.get(newSelect);
+    public Object getNewObject(){
+        return iterableList.get(newSelect).getObject();
     }
     
 }

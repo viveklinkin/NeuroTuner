@@ -20,7 +20,7 @@ import javax.swing.JFrame;
  */
 public class NewClass1 implements ChangeListener {
 
-    static Looper<Integer> loop;
+    static Looper loop;
 
     public static void main(String args[]) throws Exception {
         JFrame frame = new JFrame("Sample");
@@ -34,7 +34,7 @@ public class NewClass1 implements ChangeListener {
         });
         frame.add(b);
         frame.setVisible(true);
-        loop = new Looper<Integer>();
+        loop = new Looper();
         loop.addIter(1);
         loop.addIter(2);
         loop.addIter(3);
