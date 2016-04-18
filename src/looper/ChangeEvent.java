@@ -20,12 +20,12 @@ public class ChangeEvent {
         this.iterableList = iterableList;
     }
     
-    public Object getOldObject(){
-        return iterableList.get(oldSelect).getObject();
+    public Loopable getOldLoopable(){
+        return iterableList.get(oldSelect);
     }
     
-    public Object getNewObject(){
-        return iterableList.get(newSelect).getObject();
+    public Loopable getNewLoopable(){
+        return iterableList.get(newSelect);
     }
     
 }

@@ -9,17 +9,28 @@ package looper;
  * @author VIVEK
  */
 public class Loopable {
+
     private Class type;
     private Object obj;
-    
-    public Loopable(Object obj){
+    private SelectListener listener;
+
+    public Loopable(Object obj) {
         this.obj = obj;
     }
-    
-    public Object getObject(){
+
+    public Object getObject() {
         return obj;
     }
-    public Object getType(){
+
+    public Object getType() {
         return type.cast(obj);
+    }
+
+    public void setListener(SelectListener listener) {
+        this.listener = listener;
+    }
+
+    public SelectListener getListener() {
+        return this.listener;
     }
 }

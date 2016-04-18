@@ -6,6 +6,9 @@ package looper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,14 +16,14 @@ import java.util.logging.Logger;
  *
  * @author VIVEK
  */
-public class Looper implements Runnable {
+public class Looper implements Runnable,Observer {
 
     private List<Loopable> iterableList;
     private Thread thread;
     private boolean startFlag;
     private int select = 0;
     private ChangeListener changeListener = new DEFAULT_CHANGE_LISTENER();
-    private static final long SLEEP_MILLIS = 1000;
+    private static final long SLEEP_MILLIS = 1500;
     private ChangeEvent changeEvent;
 
     public Looper(List<Loopable> iterableList) {
@@ -36,22 +39,38 @@ public class Looper implements Runnable {
     }
 
     public void addIter(Object obj) {
-        if(obj instanceof Loopable){
+        if (obj instanceof Loopable) {
             iterableList.add((Loopable) obj);
-        }
-        else{
+        } else {
             this.iterableList.add(new Loopable(obj));
         }
     }
 
-    public Object getCurrentItem() {
-        return iterableList.get(select).getObject();
+    public void addIter(Object obj, SelectListener listener) {
+        if (obj instanceof Loopable) {
+            Loopable localLoopable = (Loopable) obj;
+            localLoopable.setListener(listener);
+            this.iterableList.add(localLoopable);
+        } else {
+            Loopable localLoopable = new Loopable(obj);
+            localLoopable.setListener(listener);
+            this.iterableList.add(localLoopable);
+        }
+    }
+
+    public Loopable getCurrentItem() {
+        return iterableList.get(select);
     }
 
     public void startLooping() {
-        thread = new Thread(this);
-        startFlag = true;
-        thread.start();
+        System.out.println("looping Thread beings");
+        if (thread == null) {
+            thread = new Thread(this);
+            startFlag = true;
+            thread.start();
+        } else {
+            resume();
+        }
     }
 
     public void pause() {
@@ -82,11 +101,18 @@ public class Looper implements Runnable {
         }
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        if (getCurrentItem().getListener() != null) {
+            getCurrentItem().getListener().onSelect(new SelectEvent((Map<String, Object>) arg, getCurrentItem()));
+        }
+    }
+
     private final class DEFAULT_CHANGE_LISTENER implements ChangeListener {
 
         @Override
         public void onChange(ChangeEvent e) {
-            System.out.println("Changed New:" + e.getNewObject());
+            System.out.println("Changed New:" + e.getNewLoopable());
         }
     }
 

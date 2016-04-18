@@ -22,7 +22,7 @@ public class NewClass {
         loop.startLooping();
         while (true) {
             Thread.sleep(400);
-            System.out.println(((Integer)loop.getCurrentItem()).intValue() +"");
+            System.out.println(((Integer)loop.getCurrentItem().getObject()).intValue() +"");
         }
     }
 }

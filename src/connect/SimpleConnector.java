@@ -5,14 +5,16 @@
 package connect;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;      
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONObject;
 
-import parser.JsonUtils;
 
 /**
  *
@@ -50,5 +52,8 @@ public class SimpleConnector {
     }
    public BufferedReader getInputStreamReader(){
        return this.inStreamReader;
+   }
+   public void stopConnecting(){
+        
    }
 }

@@ -28,6 +28,8 @@ public class JsonUtils {
                 try {
                     JSONObject jobj = new JSONObject(currentObject);
                 } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    e.printStackTrace();
                     iter.remove();
                 }
             }

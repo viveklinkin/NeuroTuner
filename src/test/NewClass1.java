@@ -49,6 +49,6 @@ public class NewClass1 implements ChangeListener {
 
     @Override
     public void onChange(ChangeEvent e) {
-        System.out.println("Changed New:" + e.getNewObject());
+        System.out.println("Changed New:" + e.getNewLoopable());
     }
 }
