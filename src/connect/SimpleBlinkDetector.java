@@ -6,8 +6,11 @@ package connect;
 
 import java.util.Map;
 import java.util.Observable;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import looper.Looper;
+import org.json.JSONObject;
+import parser.CSVUtils;
 
 /**
  *
@@ -62,5 +65,9 @@ public class SimpleBlinkDetector extends Observable implements ConnectionObserve
         this.looper.pause();
         this.simpleConnector.stopConnecting();
     }
-    
+
+    @Override
+    public void callOnPacketReceived(JSONObject jobj) {
+        logger.Logger.log(CSVUtils.toCSV(jobj));
+    }
 }

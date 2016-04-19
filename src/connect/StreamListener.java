@@ -47,6 +47,8 @@ public class StreamListener implements Runnable {
                     if (connected) {
                         for (String jsonString : JsonUtils.getJSONStringsFromBlob(str)) {
                             JSONObject jobj = new JSONObject(jsonString);
+                            Logger.add(jobj);
+                            observer.callOnPacketReceived(jobj);
                             Map<String, Object> jsonMap = JsonUtils.parseJSONAsMap(jobj);
                             if (blinkOccurred(jsonMap)) {
                                 System.out.print(jobj);

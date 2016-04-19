@@ -12,9 +12,5 @@ import looper.Looper;
  * @author VIVEK
  */
 public class BrainComputerInterface {
-    private Looper looper;
-    private SimpleBlinkDetector blinkDetector;
-    public static void main(String args[]){
-        
-    }
+     
 }

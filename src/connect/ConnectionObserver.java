@@ -5,6 +5,7 @@
 package connect;
 
 import java.util.Map;
+import org.json.JSONObject;
 
 /**
  *
@@ -13,4 +14,5 @@ import java.util.Map;
 public interface ConnectionObserver {
     public void callOnDetection(Map<?,?> eventData);
     public void callOnConnectionSuccessful();
+    public void callOnPacketReceived(JSONObject jobj);
 }
